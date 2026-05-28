@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Distortion World</title>
+    <style>
+        html { scroll-behavior: smooth; cursor: crosshair; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #050505; color: #e0e0e0; transition: 0.2s; background-image: linear-gradient(rgba(255,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.1) 1px, transparent 1px); background-size: 40px 40px; animation: warp 16s linear infinite; }
+        @keyframes warp { 0% { background-position: 0 0; } 100% { background-position: 40px 80px; } }
+        header { background: linear-gradient(180deg, #ff0000, #b29430); border-bottom: 3px solid #d4af37; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 15px rgba(212,175,55,0.3); }
+        nav { padding: 15px; text-align: center; }
+        nav a { color: #fff; text-decoration: none; margin: 0 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; transition: 0.2s; }
+        nav a:hover { color: #d4af37; text-shadow: 0 0 10px #d4af37, 0 0 20px #ff0000; }
+        main { max-width: 800px; margin: 30px auto; background: linear-gradient(135deg, rgba(20,20,20,0.98), rgba(10,10,10,0.95)); padding: 30px; border-radius: 12px; box-shadow: 0 0 30px rgba(255,0,0,0.3), 0 0 15px rgba(212,175,55,0.2); border: 2px solid #ff0000; box-sizing: border-box; backdrop-filter: blur(8px); }
+        h1, h2 { color: #d4af37; text-shadow: 2px 2px 4px #000, 0 0 8px rgba(212,175,55,0.5); text-align: center; letter-spacing: 2px; text-transform: uppercase; }
+        .web-image { max-width: 100%; height: 320px; object-fit: contain; border-radius: 8px; border: 2px solid #d4af37; display: block; margin: 20px auto; filter: drop-shadow(0 0 15px rgba(255,0,0,0.6)); transition: 0.4s; }
+        .web-image:hover { transform: scale(1.03); filter: drop-shadow(0 0 25px #d4af37); }
+        .item-image { width: 90px; display: block; margin: 20px auto; cursor: pointer; filter: drop-shadow(0 0 15px #d4af37); transition: 0.3s; }
+        .item-image:hover { transform: scale(1.2) rotate(15deg); filter: drop-shadow(0 0 25px #ff0000), drop-shadow(0 0 10px #d4af37); }
+        .forme-label { text-align: center; font-weight: 900; color: #ff0000; margin-top: 15px; font-size: 1.2em; letter-spacing: 2px; text-shadow: 0 0 5px rgba(212,175,55,0.5); }
+        table { width: 100%; border-collapse: collapse; margin-top: 25px; background: #0f0f0f; border: 2px solid #d4af37; }
+        th, td { padding: 12px; text-align: center; border: 1px solid #333; font-weight: bold; }
+        th { background: linear-gradient(180deg, #ff0000, #990000); color: white; border-bottom: 2px solid #d4af37; }
+        .stat-bar-container { background: #222; border-radius: 4px; padding: 2px; border: 1px solid #ff0000; }
+        .stat-bar { height: 12px; background: linear-gradient(90deg, #ff0000, #d4af37); border-radius: 3px; transition: width 0.5s ease; }
+        form { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
+        input, textarea, button { padding: 14px; border: 1px solid #3a3a3a; border-radius: 6px; background: #181818; color: white; font: inherit; box-sizing: border-box; }
+        input:focus, textarea:focus { outline: none; border-color: #d4af37; box-shadow: 0 0 8px #d4af37; background: #202020; }
+        button { background: linear-gradient(180deg, #ff0000, #b29430); font-weight: 900; text-transform: uppercase; cursor: pointer; border: 1px solid #d4af37; color: white; text-shadow: 1px 1px 2px #000; }
+        button:hover { background: #d4af37; color: black; box-shadow: 0 0 15px #d4af37, 0 0 5px #fff; }
+        .music-panel { background: #151515; border: 1px solid #d4af37; padding: 12px; border-radius: 6px; text-align: center; margin-bottom: 25px; box-shadow: inset 0 0 10px rgba(212,175,55,0.2); }
+        .music-btn { padding: 6px 20px; font-weight: bold; background: #333; border: 1px solid #d4af37; color: #fff; cursor: pointer; transition: 0.2s; }
+        .music-btn:hover { background: #ff0000; box-shadow: 0 0 8px #ff0000; }
+        .distortion-flash { background-color: #020000 !important; background-image: radial-gradient(circle, #ff0000 20%, #d4af37 50%, #000000 85%) !important; filter: contrast(1.3); }
+    </style>
+</head>
+<body>
+    <audio id="cryAudio" src="https://pokemonshowdown.com" preload="auto"></audio>
+    <audio id="originCryAudio" src="https://pokemonshowdown.com" preload="auto"></audio>
+    <audio id="bgMusic" src="https://vgmsite.com" loop preload="auto"></audio>
+
+    <header>
+        <nav>
+            <a href="#">Home</a> <a href="#about">The Legend</a> <a href="#artifacts">The Artifacts</a> <a href="#contact">Summon</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="music-panel">
+            <span style="font-weight:bold; color:#d4af37; text-shadow: 0 0 5px rgba(212,175,55,0.3);">🎵 REALM ATMOSPHERE: </span>
+            <button id="toggleMusic" class="music-btn">ACTIVATE</button>
+        </div>
+
+        <h1>Welcome to the Distortion World</h1>
+        <p style="text-align:center; color: #b0b0b0;">This domain pulses with the sheer presence of the Renegade Overlord, <strong>Giratina</strong>.</p>
+
+        <section id="about">
+            <h2>About Renegade Pokémon #0487</h2>
+            <img id="giratinaPic" src="giratina.png" alt="Altered Forme" class="web-image">
+            <div id="formeTitle" class="forme-label">CURRENT: ALTERED FORME</div>
+            
+            <table>
+                <tr><th style="color:#d4af37;">Base Stat</th><th style="color:#d4af37;">Value</th><th style="color:#d4af37;">Visual Matrix Mapping</th></tr>
+                <tr><td>HP</td><td>150</td><td><div class="stat-bar-container"><div style="width: 60%; background: linear-gradient(90deg, #4caf50, #d4af37); height:12px; border-radius:3px;"></div></div></td></tr>
+                <tr><td>Attack</td><td id="atkVal">100</td><td><div class="stat-bar-container"><div id="atkBar" class="stat-bar" style="width: 40%;"></div></div></td></tr>
+                <tr><td>Defense</td><td id="defVal">120</td><td><div class="stat-bar-container"><div id="defBar" class="stat-bar" style="width: 48%;"></div></div></td></tr>
+            </table>
+        </section>
+
+        <section id="artifacts" style="text-align: center; margin-top: 40px;">
+            <h2>The Artifacts of the Reverse World</h2>
+            <p style="color: #ccc;">Strike the <strong style="color:#d4af37;">Griseous Orb</strong> below to alter stats and call forth the Alternate Forme.</p>
+            <img id="griseousOrb" src="orb.png" alt="Griseous Orb" class="item-image">
+        </section>
+
+        <section id="contact">
+            <h2>Send a message to the Reverse World</h2>
+            <form id="summonForm">
+                <input type="text" placeholder="Your Trainer Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="4" placeholder="Type your message to the Renegade Overlord..." required></textarea>
+                <button type="submit">Establish Link</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('toggleMusic');
+        if (musicBtn && bgMusic) {
+            bgMusic.volume = 0.35;
+            musicBtn.addEventListener('click', function() {
+                if (bgMusic.paused) { 
+                    bgMusic.play().catch(()=>{}); 
+                    musicBtn.textContent = "DEACTIVATE"; 
+                    musicBtn.style.background = "#ff0000";
+                } else { 
+                    bgMusic.pause(); 
+                    musicBtn.textContent = "ACTIVATE"; 
+                    musicBtn.style.background = "#333";
+                }
+            });
+        }
+
+        const orb = document.getElementById('griseousOrb');
+        const mainPic = document.getElementById('giratinaPic');
+        const label = document.getElementById('formeTitle');
+        let isOrigin = false;
+
+        const atkVal = document.getElementById('atkVal'), defVal = document.getElementById('defVal');
+        const atkBar = document.getElementById('atkBar'), defBar = document.getElementById('defBar');
+
+        if (orb && mainPic && label) {
+            orb.addEventListener('click', function() {
+                document.body.classList.add('distortion-flash');
+                setTimeout(() => document.body.classList.remove('distortion-flash'), 220);
+
+                isOrigin = !isOrigin;
+                const cry = document.getElementById(isOrigin ? 'originCryAudio' : 'cryAudio');
+                if(cry) { cry.volume = 0.4; cry.play().catch(()=>{}); }
+
+                label.textContent = isOrigin ? "CURRENT: ORIGIN FORME" : "CURRENT: ALTERED FORME";
+                mainPic.src = isOrigin ? "giratina-origin.png" : "giratina.png";
+                mainPic.alt = isOrigin ? "Origin Forme" : "Altered Forme";
+                
+                atkVal.textContent = isOrigin ? "120" : "100";
+                atkBar.style.width = isOrigin ? "48%" : "40%";
+                defVal.textContent = isOrigin ? "100" : "120";
+                defBar.style.width = isOrigin ? "40%" : "48%";
+            });
+        }
+
+        const form = document.getElementById('summonForm');
+        if(form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert("The message has ripped through space-time. Giratina is listening...");
+                form.reset();
+            });
+        }
+    </script>
+</body>
+</html>
