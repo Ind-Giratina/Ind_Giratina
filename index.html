@@ -37,7 +37,8 @@
 
         <section id="about">
             <h2>About Renegade Pokémon #0487</h2>
-            <img id="giratinaPic" src="https://pokemondb.net" alt="Altered Forme" class="web-image">
+            <!-- 🌐 STABLE PUBLIC CDN LINKS FROM POKEAPI -->
+            <img id="giratinaPic" src="https://githubusercontent.com" alt="Altered Forme" class="web-image">
             <div id="formeTitle" class="forme-label">CURRENT: ALTERED FORME</div>
             <table>
                 <tr><th>Base Stat</th><th>Value</th><th>Visual Matrix Mapping</th></tr>
@@ -58,7 +59,7 @@
         <section style="text-align: center; margin-top: 40px;">
             <h2>The Artifacts of the Reverse World</h2>
             <p>Strike the Orb below to force dimensional Forme transformation.</p>
-            <img id="griseousOrb" src="https://bulbagarden.net" alt="Griseous Orb" class="item-image">
+            <img id="griseousOrb" src="https://githubusercontent.com" alt="Griseous Orb" class="item-image">
         </section>
     </main>
 
@@ -76,7 +77,8 @@
                 setTimeout(() => document.body.classList.remove('distortion-flash'), 220);
                 isOrigin = !isOrigin;
                 label.textContent = isOrigin ? "CURRENT: ORIGIN FORME" : "CURRENT: ALTERED FORME";
-                mainPic.src = isOrigin ? "https://pokemondb.net" : "https://pokemondb.net";
+                // 🌐 FIXED DYNAMIC STATE LINK
+                mainPic.src = isOrigin ? "https://githubusercontent.com" : "https://githubusercontent.com";
                 atkVal.textContent = isOrigin ? "120" : "100";
                 atkBar.style.width = isOrigin ? "48%" : "40%";
                 defVal.textContent = isOrigin ? "100" : "120";
